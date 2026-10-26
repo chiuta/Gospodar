@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.0.0 · **Ultima actualizare:** 2026-10-14
+**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -21,6 +21,8 @@ Gospodar este un buget de gospodărie care rulează local, într-un singur fiși
 - **Profiluri de import:** numele + maparea ta (coloane după nume de antet sau poziție, separator, codare, formate). Un profil este doar setarea ta; **nu este un format oficial al vreunei bănci** și aplicația nu pretinde acest lucru.
 - **Duplicate:** cheia este dată + sumă + descriere normalizată (fără diacritice și majuscule, fără semne). Rândurile identice legitime din aceeași zi (de ex. două retrageri egale) se numără: la reimport, un rând e duplicat doar dacă există deja tot atâtea exemplare.
 - **Reguli de categorizare:** „conține” (termeni separați prin `;`, insensibil la diacritice) sau expresie regulată, plus sumă între (valoare absolută), tip, cont, categorie atribuită și etichete adăugate. Prima regulă care se potrivește câștigă; ordinea se schimbă cu ↑ ↓. Se aplică la import, la adăugarea rapidă și la cerere (pe necategorizate sau pe toate), cu previzualizare a efectului și anulare.
+- **Reguli învățate din istoric** (nou în 2.0.0): butonul „Învață reguli din istoric” caută comercianți cu cel puțin 3 tranzacții categorisate, aceeași categorie în cel puțin 80 % din potriviri (inclusiv corecțiile tale) și care nu sunt deja acoperiți de o regulă; arată câte potriviri sunt în aceeași categorie, câte în alta și câte necategorizate s-ar afecta. Creezi doar regulile bifate, le poți edita și anula. Calculul e local și nu inventează categorii.
+- **Prognoză** (nou în 2.0.0): soldul total estimat lună cu lună (3/6/12 luni) din soldul de azi, recurențe, operațiuni deja datate în viitor și, opțional, media lunară a mișcărilor neperiodice din ultimele luni; avertizează dacă soldul devine negativ; grafic, tabel și export CSV. Estimare orientativă, nu sfat financiar.
 - **Recurente:** chirie, salariu, abonamente (zilnic/săptămânal/lunar/anual, interval, sfârșit, suspendare). Scadențele **nu se înregistrează singure**: un clic le înregistrează. Proiecția pentru luna următoare arată scadențele și netul proiectat.
 - **Bugete:** limită lunară pe categorie (bugetul unei categorii principale include subcategoriile), bară de progres, text de stare (în limită / aproape de limită ≥ 80 % / depășit) și o listă de avertizări.
 - **Rapoarte:** cheltuieli pe categorii, evoluție lunară (12 luni), flux de numerar cu soldul total la sfârșit de lună, top comercianți, comparație lună cu lună, sold pe cont; fiecare grafic are titlu, descriere și tabel. **Tipărire raport lunar** (CSS de tipărire).
@@ -73,4 +75,5 @@ MIT — vezi fișierul `LICENSE` din rădăcina depozitului.
 
 ## Istoric
 
+- 2.0.0 — 2026-10-26: reguli de categorizare învățate din istoric și prognoza soldului pe luni.
 - 1.0.0 — 2026-10-14: prima versiune.

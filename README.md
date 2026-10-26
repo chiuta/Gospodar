@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.0.0 · **Last updated:** 2026-10-14
+**Version:** 2.0.0 · **Last updated:** 2026-10-26
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -73,4 +73,5 @@ MIT — see the `LICENSE` file at the repository root.
 
 ## History
 
+- 2.0.0 — 2026-10-26: categorisation rules learned from history and a month-by-month balance forecast.
 - 1.0.0 — 2026-10-14: first release.
