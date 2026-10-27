@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 2.0.0 · **Última actualización:** 2026-10-26
+**Versión:** 2.1.0 · **Última actualización:** 2026-10-27
+
+**Estado:** estable · **Sin conexión:** completo
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -27,6 +29,12 @@ Gospodar es un presupuesto doméstico que se ejecuta en local, en un único arch
 - **Calculadoras:** cuota de préstamo (anualidad y cuotas de principal iguales, gráfico y cuadro de amortización completo), interés compuesto con aportaciones mensuales, objetivo de ahorro, actualización por inflación (la tasa la introduces tú), IVA (añadir/quitar, tipo introducido por ti), conversión de divisas (el tipo lo introduces tú). Cada una muestra las fórmulas, los pasos con tus valores, los supuestos y la advertencia de que los resultados son orientativos.
 - **Ajustes:** idioma, tema, exportación/importación `.fff.json` (sin cifrar o cifrado con contraseña), exportación CSV, cifrado, bloqueo automático, «Borrar todo».
 
+## Copia de seguridad y plantillas de importación (2.1.0)
+
+- **Recordatorio.** La aplicación no se ejecuta en segundo plano: el recordatorio aparece solo al abrirla, si han pasado esos días y hay cambios nuevos. «Registrada» solo significa que descargaste el archivo desde este navegador; la aplicación no puede comprobar dónde lo guardaste.
+- **Parámetros de la copia cifrada.** La copia cifrada usa AES-GCM de 256 bits, con clave derivada de la contraseña mediante PBKDF2-SHA256 (600.000 iteraciones), sal aleatoria de 16 bytes y un IV de 12 bytes nuevo en cada exportación; el formato es fff-bundle-enc. Usa Web Crypto del navegador y no ha sido auditada por terceros. La contraseña no se almacena y no se puede recuperar.
+- **Plantillas de partida para importar CSV.** Las plantillas son puntos de partida, no formatos oficiales. Revolut: las columnas son las documentadas públicamente por terceros (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), con fechas como 2025-09-04 08:04:10 y punto decimal; compruébalas con tu exportación (si los encabezados están en otro idioma se usa el orden de las columnas). Las filas cuyo State no sea COMPLETED (p. ej. PENDING, REVERTED) no se filtran y Fee no se suma al importe. BT, BCR, ING: no tenemos una especificación pública verificada; la plantilla solo aplica ajustes rumanos habituales (número 1.234,56 y detección de encabezado, fecha y separador), y tú confirmas el mapeo y guardas tu propio perfil.
+
 ## Lo que NO hace y sus límites
 
 - **No ofrece asesoramiento financiero, de inversión ni fiscal.** Las calculadoras son orientativas y muestran sus supuestos; no calculan la TAE y no incluyen comisiones, seguros ni impuestos.
@@ -41,7 +49,7 @@ Gospodar es un presupuesto doméstico que se ejecuta en local, en un único arch
 
 ## Privacidad
 
-Se ejecuta en local y no envía nada. No hay analítica, cookies ni solicitudes de red (`connect-src 'none'`). Los datos se guardan en `localStorage` con el prefijo `fff.gospodar.`: `data` (el conjunto de datos, en claro, o ausente si está cifrado), `enc` (el conjunto cifrado), `lang`, `theme`.
+Se ejecuta en local y no envía nada. No hay analítica, cookies ni solicitudes de red (`connect-src 'none'`). Los datos se guardan en `localStorage` con el prefijo `fff.gospodar.`: `data` (el conjunto de datos, en claro, o ausente si está cifrado), `enc` (el conjunto cifrado), `lang`, `theme`, `backup`.
 
 **Cifrado opcional:** el conjunto guardado se cifra con AES-GCM de 256 bits (Web Crypto); la clave deriva de la contraseña mediante PBKDF2-SHA256 con 600 000 iteraciones (≥ 310 000), una sal aleatoria de 16 bytes y un IV nuevo en cada guardado. La contraseña no se almacena. Al activarlo, la copia en claro se borra del navegador. **Si pierdes la contraseña, los datos cifrados se pierden definitivamente; no existe recuperación.** Los datos sin cifrar estarán, no obstante, en la memoria de la página mientras la aplicación esté desbloqueada; el bloqueo (manual o automático) los retira de la página. Las exportaciones `.fff.json` sin cifrar contienen todo lo que has introducido; también existe la exportación cifrada con contraseña.
 

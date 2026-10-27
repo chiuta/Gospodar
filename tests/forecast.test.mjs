@@ -1,4 +1,4 @@
-// Teste Gospodar 2.0.0: reguli învățate din istoric + prognoza soldului pe luni.
+// Teste Gospodar (introdus în 2.0.0): reguli învățate din istoric + prognoza soldului pe luni.
 // Rulare: node tests/forecast.test.mjs [filtru]
 import {createRequire} from 'module';
 import fs from 'node:fs';

@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Last updated:** 2026-10-26
+**Version:** 2.1.0 · **Last updated:** 2026-10-27
+
+**Status:** stable · **Offline:** complete
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -27,6 +29,12 @@ Gospodar is a household budget that runs locally, in a single HTML file, with no
 - **Calculators:** loan payment (annuity and equal principal instalments, chart and full amortisation schedule), compound interest with monthly deposits, savings goal, inflation adjustment (you enter the rate), VAT (add/remove, rate entered by you), currency conversion (you enter the rate). Each shows the formulas, the steps with your values, the assumptions and the warning that results are indicative.
 - **Settings:** language, theme, `.fff.json` export/import (unencrypted or password-encrypted), CSV export, encryption, auto-lock, "Delete all".
 
+## Backup and import templates (2.1.0)
+
+- **Reminder.** The app does not run in the background: the reminder appears only when you open it, if that many days have passed and there are new changes. “Recorded” only means you downloaded the file from this browser; the app cannot check where you kept it.
+- **Encrypted backup parameters.** The encrypted backup uses 256-bit AES-GCM, with a key derived from the password via PBKDF2-SHA256 (600,000 iterations), a random 16-byte salt and a fresh 12-byte IV per export; the format is fff-bundle-enc. It relies on the browser’s Web Crypto and has not been audited by third parties. The password is not stored and cannot be recovered.
+- **Starter templates for CSV import.** Templates are starting points, not official formats. Revolut: the columns are those publicly documented by third parties (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), with dates like 2025-09-04 08:04:10 and a decimal point; check them against your own export (if the headers are in another language, the column order is used). Rows whose State is not COMPLETED (e.g. PENDING, REVERTED) are not filtered, and Fee is not added to the amount. BT, BCR, ING: we have no verified public specification; the template only applies usual Romanian settings (number 1.234,56 and detection of header, date and separator), and you confirm the mapping and save your own profile.
+
 ## What it does NOT do, and its limits
 
 - **It gives no financial, investment or tax advice.** The calculators are indicative and display their assumptions; they do not compute APR/APRC and do not include fees, insurance or taxes.
@@ -41,7 +49,7 @@ Gospodar is a household budget that runs locally, in a single HTML file, with no
 
 ## Privacy
 
-It runs locally and sends nothing. There are no analytics, cookies or network requests (`connect-src 'none'`). The data is kept in `localStorage` under the prefix `fff.gospodar.`: `data` (the dataset, in clear text, or absent if encrypted), `enc` (the encrypted set), `lang`, `theme`.
+It runs locally and sends nothing. There are no analytics, cookies or network requests (`connect-src 'none'`). The data is kept in `localStorage` under the prefix `fff.gospodar.`: `data` (the dataset, in clear text, or absent if encrypted), `enc` (the encrypted set), `lang`, `theme`, `backup`.
 
 **Optional encryption:** the saved set is encrypted with 256-bit AES-GCM (Web Crypto); the key is derived from the password via PBKDF2-SHA256 with 600,000 iterations (≥ 310,000), a random 16-byte salt and a fresh IV on every save. The password is not stored. On activation, the clear-text copy is erased from the browser. **If you lose the password, the encrypted data is lost permanently; there is no recovery.** Unencrypted data will nevertheless be in the page's memory while the app is unlocked; locking (manual or automatic) removes it from the page. Unencrypted `.fff.json` exports contain everything you entered; there is also a password-encrypted export.
 
@@ -73,5 +81,6 @@ MIT — see the `LICENSE` file at the repository root.
 
 ## History
 
+- 2.1.0 — 2026-10-27: backup reminder, documented encrypted-backup parameters, starter templates for import (Revolut; BT, BCR, ING marked “format to be verified”).
 - 2.0.0 — 2026-10-26: categorisation rules learned from history and a month-by-month balance forecast.
 - 1.0.0 — 2026-10-14: first release.
