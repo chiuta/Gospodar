@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 2.1.0 · **Zuletzt aktualisiert:** 2026-10-27
+**Version:** 2.2.0 · **Zuletzt aktualisiert:** 2026-10-27
 
 **Status:** stabil · **Offline:** vollständig
 
@@ -33,7 +33,8 @@ Gospodar ist ein Haushaltsbuch, das lokal in einer einzigen HTML-Datei läuft, o
 
 - **Erinnerung.** Die App läuft nicht im Hintergrund: Die Erinnerung erscheint nur beim Öffnen, wenn so viele Tage vergangen sind und es neue Änderungen gibt. „Erfasst“ heißt nur, dass die Datei aus diesem Browser heruntergeladen wurde; die App kann nicht prüfen, wo sie aufbewahrt wird.
 - **Parameter der verschlüsselten Sicherung.** Die verschlüsselte Sicherung nutzt AES-GCM mit 256 Bit; der Schlüssel wird per PBKDF2-SHA256 (600.000 Iterationen) aus dem Passwort abgeleitet, mit zufälligem 16-Byte-Salt und bei jedem Export neuem 12-Byte-IV; das Format ist fff-bundle-enc. Sie nutzt Web Crypto des Browsers und wurde nicht von Dritten geprüft. Das Passwort wird nicht gespeichert und lässt sich nicht wiederherstellen.
-- **Startvorlagen für den CSV-Import.** Vorlagen sind Ausgangspunkte, keine offiziellen Formate. Revolut: Die Spalten sind die von Dritten öffentlich dokumentierten (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), mit Datumsangaben wie 2025-09-04 08:04:10 und Dezimalpunkt; prüfen Sie sie mit Ihrem Export (bei Spaltenköpfen in anderer Sprache gilt die Spaltenreihenfolge). Zeilen mit State ungleich COMPLETED (z. B. PENDING, REVERTED) werden nicht gefiltert, und Fee wird nicht zum Betrag addiert. BT, BCR, ING: Wir haben keine geprüfte öffentliche Spezifikation; die Vorlage wendet nur übliche rumänische Einstellungen an (Zahl 1.234,56 sowie Erkennung von Kopfzeile, Datum und Trennzeichen), und Sie bestätigen die Zuordnung und speichern Ihr eigenes Profil.
+- **Startvorlagen für den CSV-Import.** Vorlagen sind Ausgangspunkte, keine offiziellen Formate. Revolut: Die Spalten sind die von Dritten öffentlich dokumentierten (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), mit Datumsangaben wie 2025-09-04 08:04:10 und Dezimalpunkt; prüfen Sie sie mit Ihrem Export (bei Spaltenköpfen in anderer Sprache gilt die Spaltenreihenfolge). Die Spalten Fee und State sind zugeordnet, aber die Optionen „Zeilen mit anderem Status als COMPLETED überspringen“ und „Gebühr vom Betrag abziehen“ sind standardmäßig aus (siehe Hinweis unter der Zuordnung). BT, BCR, ING: Wir haben keine geprüfte öffentliche Spezifikation; die Vorlage wendet nur übliche rumänische Einstellungen an (Zahl 1.234,56 sowie Erkennung von Kopfzeile, Datum und Trennzeichen), und Sie bestätigen die Zuordnung und speichern Ihr eigenes Profil.
+- **Gebühr (optional) / Status (optional) (2.2.0).** Beide Optionen sind standardmäßig aus und greifen nie von selbst: Wir können nicht prüfen, ob der Betrag in der Datei die Gebühr schon enthält, noch wie die Status in der Sprache Ihres Exports heißen. Nutzen Sie die „Saldenprüfung“ in der Vorschau: Sinkt die Zahl der Abweichungen nach dem Anhaken, passt diese Deutung zu Ihrer Datei.
 
 ## Was es NICHT tut, und seine Grenzen
 

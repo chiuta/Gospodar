@@ -144,7 +144,7 @@ await T('șablon Revolut: mapează după nume, data cu oră, zecimale cu punct',
   assert.match(await p.textContent('#imCfg'), /Nu avem o specificație publică verificată|nu avem o specificație publică verificată/);
   await p.selectOption('#im-tpl', 'revolut'); await p.waitForTimeout(100);
   const st = await E(p, () => { const I = GOSPODAR.U.imp; return {map: I.map, dateFmt: I.dateFmt, numFmt: I.numFmt, header: I.header, sep: I.sep, rows: I.built.map(r => [r.date, r.amt, r.desc, r.err || ''])}; });
-  assert.deepEqual(st.map, {date: 2, amount: 5, debit: -1, credit: -1, desc: 4, desc2: -1, balance: 9});
+  assert.deepEqual(st.map, {date: 2, amount: 5, debit: -1, credit: -1, desc: 4, desc2: -1, balance: 9, fee: 6, state: 8});
   assert.equal(st.dateFmt, 'YYYY-MM-DD'); assert.equal(st.numFmt, 'us'); assert.equal(st.header, true); assert.equal(st.sep, ',');
   assert.deepEqual(st.rows.map(r => r.slice(0, 2)), [['2025-09-04', 16368], ['2025-09-05', -350], ['2025-09-06', -123450]], JSON.stringify(st.rows));
   assert.equal(st.rows[2][2], 'Market, Central'); assert.ok(st.rows.every(r => !r[3]));
@@ -156,7 +156,7 @@ await T('șablon Revolut: antete în altă limbă → se folosește ordinea colo
   const csv = REV.replace(/^[^\n]*\n/, 'Typ,Produkt,Datum zahájení,Datum dokončení,Popis,Částka,Poplatek,Měna,State,Zůstatek\n');
   const p = await newPage(); await toImport(p, csv); await p.selectOption('#im-tpl', 'revolut'); await p.waitForTimeout(100);
   const map = await E(p, () => GOSPODAR.U.imp.map);
-  assert.deepEqual(map, {date: 2, amount: 5, debit: -1, credit: -1, desc: 4, desc2: -1, balance: 9});
+  assert.deepEqual(map, {date: 2, amount: 5, debit: -1, credit: -1, desc: 4, desc2: -1, balance: 9, fee: 6, state: 8});
   assert.equal(await E(p, () => GOSPODAR.U.imp.info.ok), 3);
   await clean(p); await p.ctx.close();
 });

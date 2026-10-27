@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.1.0 · **Ultima actualizare:** 2026-10-27
+**Versiune:** 2.2.0 · **Ultima actualizare:** 2026-10-27
 
 **Stare:** stabil · **Offline:** complet
 
@@ -35,7 +35,8 @@ Gospodar este un buget de gospodărie care rulează local, într-un singur fiși
 
 - **Reamintire.** Aplicația nu rulează în fundal: reamintirea apare doar când o deschizi, dacă au trecut atâtea zile și există modificări noi. „Înregistrată” înseamnă doar că ai descărcat fișierul din acest browser; aplicația nu poate verifica unde l-ai păstrat.
 - **Parametri ai copiei criptate.** Copia criptată folosește AES-GCM pe 256 de biți, cheie derivată din parolă cu PBKDF2-SHA256 (600.000 de iterații), sare aleatoare de 16 octeți și IV de 12 octeți nou la fiecare export; formatul este fff-bundle-enc. Se bazează pe Web Crypto din browser și nu a fost auditată de terți. Parola nu se stochează și nu poate fi recuperată.
-- **Șabloane de pornire pentru import CSV.** Șabloanele sunt puncte de plecare, nu formate oficiale. Revolut: coloanele sunt cele documentate public de terți (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), cu data de forma 2025-09-04 08:04:10 și zecimale cu punct; verifică-le cu exportul tău (dacă antetele sunt în altă limbă, se folosește ordinea coloanelor). Rândurile cu State diferit de COMPLETED (de ex. PENDING, REVERTED) nu sunt filtrate, iar Fee nu se adaugă la sumă. BT, BCR, ING: nu avem o specificație publică verificată; șablonul aplică doar setări românești uzuale (număr 1.234,56 și detectarea antetului, a datei și a separatorului), iar tu confirmi maparea și îți salvezi propriul profil.
+- **Șabloane de pornire pentru import CSV.** Șabloanele sunt puncte de plecare, nu formate oficiale. Revolut: coloanele sunt cele documentate public de terți (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), cu data de forma 2025-09-04 08:04:10 și zecimale cu punct; verifică-le cu exportul tău (dacă antetele sunt în altă limbă, se folosește ordinea coloanelor). Coloanele Fee și State sunt mapate, dar opțiunile „ignoră rândurile cu altă stare decât COMPLETED” și „scade comisionul din sumă” sunt oprite implicit (vezi nota de sub mapare). BT, BCR, ING: nu avem o specificație publică verificată; șablonul aplică doar setări românești uzuale (număr 1.234,56 și detectarea antetului, a datei și a separatorului), iar tu confirmi maparea și îți salvezi propriul profil.
+- **Comision (opțional) / Stare (opțional) (2.2.0).** Ambele opțiuni sunt oprite implicit și nu se aplică singure: nu putem verifica dacă suma din fișier conține deja comisionul și nici cum se numesc stările în limba exportului tău. Folosește „verificarea soldurilor” din previzualizare: dacă numărul de nepotriviri scade după ce bifezi, interpretarea este cea potrivită pentru fișierul tău.
 
 ## Ce NU face și limitele
 
@@ -83,6 +84,7 @@ MIT — vezi fișierul `LICENSE` din rădăcina depozitului.
 
 ## Istoric
 
+- 2.2.0 — 2026-10-27: import CSV: coloane opționale „Comision” (scădere din sumă) și „Stare” (filtrare), oprite implicit; șablonul Revolut le mapează, dar nu le activează.
 - 2.1.0 — 2026-10-27: reamintire pentru copia de siguranță, parametrii copiei criptate documentați, șabloane de pornire pentru import (Revolut; BT, BCR, ING marcate „format de verificat”).
 - 2.0.0 — 2026-10-26: reguli de categorizare învățate din istoric și prognoza soldului pe luni.
 - 1.0.0 — 2026-10-14: prima versiune.

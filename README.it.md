@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 2.1.0 · **Ultimo aggiornamento:** 2026-10-27
+**Versione:** 2.2.0 · **Ultimo aggiornamento:** 2026-10-27
 
 **Stato:** stabile · **Offline:** completo
 
@@ -33,7 +33,8 @@ Gospodar è un budget familiare che funziona in locale, in un unico file HTML, s
 
 - **Promemoria.** L’app non funziona in background: il promemoria compare solo quando la apri, se sono passati tanti giorni e ci sono modifiche nuove. «Registrato» significa solo che hai scaricato il file da questo browser; l’app non può verificare dove lo hai conservato.
 - **Parametri del backup cifrato.** Il backup cifrato usa AES-GCM a 256 bit, con chiave derivata dalla password tramite PBKDF2-SHA256 (600.000 iterazioni), salt casuale di 16 byte e IV di 12 byte nuovo a ogni esportazione; il formato è fff-bundle-enc. Si basa su Web Crypto del browser e non è stato verificato da terzi. La password non viene memorizzata e non può essere recuperata.
-- **Modelli di partenza per l’importazione CSV.** I modelli sono punti di partenza, non formati ufficiali. Revolut: le colonne sono quelle documentate pubblicamente da terzi (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), con date del tipo 2025-09-04 08:04:10 e punto decimale; verificale con la tua esportazione (se le intestazioni sono in un’altra lingua si usa l’ordine delle colonne). Le righe con State diverso da COMPLETED (ad es. PENDING, REVERTED) non sono filtrate e Fee non viene aggiunto all’importo. BT, BCR, ING: non abbiamo una specifica pubblica verificata; il modello applica solo impostazioni romene usuali (numero 1.234,56 e rilevamento di intestazione, data e separatore), e tu confermi la mappatura e salvi il tuo profilo.
+- **Modelli di partenza per l’importazione CSV.** I modelli sono punti di partenza, non formati ufficiali. Revolut: le colonne sono quelle documentate pubblicamente da terzi (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), con date del tipo 2025-09-04 08:04:10 e punto decimale; verificale con la tua esportazione (se le intestazioni sono in un’altra lingua si usa l’ordine delle colonne). Le colonne Fee e State sono mappate, ma le opzioni «ignora le righe con stato diverso da COMPLETED» e «sottrai la commissione dall’importo» sono disattivate per impostazione predefinita (vedi la nota sotto la mappatura). BT, BCR, ING: non abbiamo una specifica pubblica verificata; il modello applica solo impostazioni romene usuali (numero 1.234,56 e rilevamento di intestazione, data e separatore), e tu confermi la mappatura e salvi il tuo profilo.
+- **Commissione (opzionale) / Stato (opzionale) (2.2.0).** Entrambe le opzioni sono disattivate per impostazione predefinita e non si applicano da sole: non possiamo verificare se l’importo nel file includa già la commissione, né come siano chiamati gli stati nella lingua della tua esportazione. Usa il «controllo dei saldi» nell’anteprima: se il numero di discrepanze cala dopo aver spuntato un’opzione, quell’interpretazione è adatta al tuo file.
 
 ## Cosa NON fa e i suoi limiti
 

@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.1.0 · **Last updated:** 2026-10-27
+**Version:** 2.2.0 · **Last updated:** 2026-10-27
 
 **Status:** stable · **Offline:** complete
 
@@ -33,7 +33,8 @@ Gospodar is a household budget that runs locally, in a single HTML file, with no
 
 - **Reminder.** The app does not run in the background: the reminder appears only when you open it, if that many days have passed and there are new changes. “Recorded” only means you downloaded the file from this browser; the app cannot check where you kept it.
 - **Encrypted backup parameters.** The encrypted backup uses 256-bit AES-GCM, with a key derived from the password via PBKDF2-SHA256 (600,000 iterations), a random 16-byte salt and a fresh 12-byte IV per export; the format is fff-bundle-enc. It relies on the browser’s Web Crypto and has not been audited by third parties. The password is not stored and cannot be recovered.
-- **Starter templates for CSV import.** Templates are starting points, not official formats. Revolut: the columns are those publicly documented by third parties (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), with dates like 2025-09-04 08:04:10 and a decimal point; check them against your own export (if the headers are in another language, the column order is used). Rows whose State is not COMPLETED (e.g. PENDING, REVERTED) are not filtered, and Fee is not added to the amount. BT, BCR, ING: we have no verified public specification; the template only applies usual Romanian settings (number 1.234,56 and detection of header, date and separator), and you confirm the mapping and save your own profile.
+- **Starter templates for CSV import.** Templates are starting points, not official formats. Revolut: the columns are those publicly documented by third parties (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), with dates like 2025-09-04 08:04:10 and a decimal point; check them against your own export (if the headers are in another language, the column order is used). The Fee and State columns are mapped, but the options “skip rows whose state is not COMPLETED” and “subtract the fee from the amount” are off by default (see the note under the mapping). BT, BCR, ING: we have no verified public specification; the template only applies usual Romanian settings (number 1.234,56 and detection of header, date and separator), and you confirm the mapping and save your own profile.
+- **Fee (optional) / State/status (optional) (2.2.0).** Both options are off by default and never apply themselves: we cannot verify whether the amount in the file already includes the fee, nor how states are named in your export’s language. Use the “balance check” in the preview: if the number of mismatches drops after you tick an option, that interpretation fits your file.
 
 ## What it does NOT do, and its limits
 
@@ -81,6 +82,7 @@ MIT — see the `LICENSE` file at the repository root.
 
 ## History
 
+- 2.2.0 — 2026-10-27: CSV import: optional “Fee” (subtract from amount) and “State” (filter) columns, off by default; the Revolut template maps them but does not enable them.
 - 2.1.0 — 2026-10-27: backup reminder, documented encrypted-backup parameters, starter templates for import (Revolut; BT, BCR, ING marked “format to be verified”).
 - 2.0.0 — 2026-10-26: categorisation rules learned from history and a month-by-month balance forecast.
 - 1.0.0 — 2026-10-14: first release.

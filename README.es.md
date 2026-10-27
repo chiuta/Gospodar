@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 2.1.0 · **Última actualización:** 2026-10-27
+**Versión:** 2.2.0 · **Última actualización:** 2026-10-27
 
 **Estado:** estable · **Sin conexión:** completo
 
@@ -33,7 +33,8 @@ Gospodar es un presupuesto doméstico que se ejecuta en local, en un único arch
 
 - **Recordatorio.** La aplicación no se ejecuta en segundo plano: el recordatorio aparece solo al abrirla, si han pasado esos días y hay cambios nuevos. «Registrada» solo significa que descargaste el archivo desde este navegador; la aplicación no puede comprobar dónde lo guardaste.
 - **Parámetros de la copia cifrada.** La copia cifrada usa AES-GCM de 256 bits, con clave derivada de la contraseña mediante PBKDF2-SHA256 (600.000 iteraciones), sal aleatoria de 16 bytes y un IV de 12 bytes nuevo en cada exportación; el formato es fff-bundle-enc. Usa Web Crypto del navegador y no ha sido auditada por terceros. La contraseña no se almacena y no se puede recuperar.
-- **Plantillas de partida para importar CSV.** Las plantillas son puntos de partida, no formatos oficiales. Revolut: las columnas son las documentadas públicamente por terceros (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), con fechas como 2025-09-04 08:04:10 y punto decimal; compruébalas con tu exportación (si los encabezados están en otro idioma se usa el orden de las columnas). Las filas cuyo State no sea COMPLETED (p. ej. PENDING, REVERTED) no se filtran y Fee no se suma al importe. BT, BCR, ING: no tenemos una especificación pública verificada; la plantilla solo aplica ajustes rumanos habituales (número 1.234,56 y detección de encabezado, fecha y separador), y tú confirmas el mapeo y guardas tu propio perfil.
+- **Plantillas de partida para importar CSV.** Las plantillas son puntos de partida, no formatos oficiales. Revolut: las columnas son las documentadas públicamente por terceros (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), con fechas como 2025-09-04 08:04:10 y punto decimal; compruébalas con tu exportación (si los encabezados están en otro idioma se usa el orden de las columnas). Las columnas Fee y State están mapeadas, pero las opciones «omitir filas con estado distinto de COMPLETED» y «restar la comisión del importe» están desactivadas por defecto (véase la nota bajo el mapeo). BT, BCR, ING: no tenemos una especificación pública verificada; la plantilla solo aplica ajustes rumanos habituales (número 1.234,56 y detección de encabezado, fecha y separador), y tú confirmas el mapeo y guardas tu propio perfil.
+- **Comisión (opcional) / Estado (opcional) (2.2.0).** Ambas opciones están desactivadas por defecto y nunca se aplican solas: no podemos comprobar si el importe del archivo ya incluye la comisión, ni cómo se llaman los estados en el idioma de tu exportación. Usa la «comprobación de saldos» de la vista previa: si el número de discrepancias baja al marcar una opción, esa interpretación encaja con tu archivo.
 
 ## Lo que NO hace y sus límites
 
