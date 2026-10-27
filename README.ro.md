@@ -2,7 +2,9 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.1.0 · **Ultima actualizare:** 2026-10-27
+
+**Stare:** stabil · **Offline:** complet
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -29,6 +31,12 @@ Gospodar este un buget de gospodărie care rulează local, într-un singur fiși
 - **Calculatoare:** rată credit (anuitate și rate egale de principal, grafic și grafic complet de amortizare), dobândă compusă cu depuneri lunare, obiectiv de economisire, actualizare cu inflația (rata o introduci tu), TVA (adăugare/scoatere, cota introdusă de tine), conversie valutară (cursul îl introduci tu). Fiecare arată formulele, pașii cu valorile tale, ipotezele și avertismentul că rezultatele sunt orientative.
 - **Setări:** limbă, temă, export/import `.fff.json` (necriptat sau criptat cu parolă), export CSV, criptare, blocare automată, „Șterge tot”.
 
+## Copie de siguranță și șabloane de import (2.1.0)
+
+- **Reamintire.** Aplicația nu rulează în fundal: reamintirea apare doar când o deschizi, dacă au trecut atâtea zile și există modificări noi. „Înregistrată” înseamnă doar că ai descărcat fișierul din acest browser; aplicația nu poate verifica unde l-ai păstrat.
+- **Parametri ai copiei criptate.** Copia criptată folosește AES-GCM pe 256 de biți, cheie derivată din parolă cu PBKDF2-SHA256 (600.000 de iterații), sare aleatoare de 16 octeți și IV de 12 octeți nou la fiecare export; formatul este fff-bundle-enc. Se bazează pe Web Crypto din browser și nu a fost auditată de terți. Parola nu se stochează și nu poate fi recuperată.
+- **Șabloane de pornire pentru import CSV.** Șabloanele sunt puncte de plecare, nu formate oficiale. Revolut: coloanele sunt cele documentate public de terți (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), cu data de forma 2025-09-04 08:04:10 și zecimale cu punct; verifică-le cu exportul tău (dacă antetele sunt în altă limbă, se folosește ordinea coloanelor). Rândurile cu State diferit de COMPLETED (de ex. PENDING, REVERTED) nu sunt filtrate, iar Fee nu se adaugă la sumă. BT, BCR, ING: nu avem o specificație publică verificată; șablonul aplică doar setări românești uzuale (număr 1.234,56 și detectarea antetului, a datei și a separatorului), iar tu confirmi maparea și îți salvezi propriul profil.
+
 ## Ce NU face și limitele
 
 - **Nu dă sfaturi financiare, de investiții sau fiscale.** Calculatoarele sunt orientative și afișează ipotezele; nu calculează DAE/TAEG și nu includ comisioane, asigurări sau impozite.
@@ -43,7 +51,7 @@ Gospodar este un buget de gospodărie care rulează local, într-un singur fiși
 
 ## Confidențialitate
 
-Rulează local, nu trimite nimic. Nu există analitice, cookie-uri sau cereri de rețea (`connect-src 'none'`). Datele stau în `localStorage` sub prefixul `fff.gospodar.`: `data` (setul de date, în clar sau absent dacă e criptat), `enc` (setul criptat), `lang`, `theme`.
+Rulează local, nu trimite nimic. Nu există analitice, cookie-uri sau cereri de rețea (`connect-src 'none'`). Datele stau în `localStorage` sub prefixul `fff.gospodar.`: `data` (setul de date, în clar sau absent dacă e criptat), `enc` (setul criptat), `lang`, `theme`, `backup`.
 
 **Criptare opțională:** setul salvat se criptează cu AES-GCM pe 256 de biți (Web Crypto); cheia derivă din parolă prin PBKDF2-SHA256 cu 600.000 de iterații (≥ 310.000), sare aleatoare de 16 octeți și IV nou la fiecare salvare. Parola nu se stochează. La activare, copia în clar este ștearsă din browser. **Dacă pierzi parola, datele criptate sunt pierdute definitiv; nu există recuperare.** Datele necriptate vor fi totuși în memoria paginii cât timp aplicația e deblocată; blocarea (manuală sau automată) le scoate din pagină. Exporturile `.fff.json` necriptate conțin tot ce ai introdus; există și export criptat cu parolă.
 
@@ -75,5 +83,6 @@ MIT — vezi fișierul `LICENSE` din rădăcina depozitului.
 
 ## Istoric
 
+- 2.1.0 — 2026-10-27: reamintire pentru copia de siguranță, parametrii copiei criptate documentați, șabloane de pornire pentru import (Revolut; BT, BCR, ING marcate „format de verificat”).
 - 2.0.0 — 2026-10-26: reguli de categorizare învățate din istoric și prognoza soldului pe luni.
 - 1.0.0 — 2026-10-14: prima versiune.

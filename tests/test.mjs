@@ -16,6 +16,7 @@ const AXE = process.env.AXE_PATH || '/tmp/claude-0/-home-claude/78529928-3825-51
 const ORACLE = JSON.parse(fs.readFileSync(path.join(HERE, 'oracle.json'), 'utf8'));
 const NOW = '2026-10-14T10:00:00+03:00';
 const only = process.argv[2];
+const APPV = JSON.parse(fs.readFileSync(new URL('../app.json', import.meta.url), 'utf8')); // versiunea/data se citesc din app.json
 const results = [];
 async function T(name, fn) {
   if (only && !name.includes(only)) return;
@@ -62,9 +63,9 @@ await T('pornire: 0 erori, CSP, fără rețea, meta, versiune, lang', async () =
   const p = await newPage();
   await clean(p, 'start');
   assert.equal(await E(p, () => document.documentElement.lang), 'ro');
-  assert.equal(await E(p, () => document.querySelector('meta[name=application-version]').content), '2.0.0');
-  assert.equal(await E(p, () => document.querySelector('meta[name=last-updated]').content), '2026-10-26');
-  assert.equal((await p.textContent('#app-version')).trim(), 'v 2.0.0 · 2026-10-26');
+  assert.equal(await E(p, () => document.querySelector('meta[name=application-version]').content), APPV.version);
+  assert.equal(await E(p, () => document.querySelector('meta[name=last-updated]').content), APPV.updated);
+  assert.equal((await p.textContent('#app-version')).trim(), `v ${APPV.version} · ${APPV.updated}`);
   const csp = await E(p, () => document.querySelector('meta[http-equiv=Content-Security-Policy]').content);
   // script-src: 3 scripturi inline executabile (kit, înregistrare PWA, aplicație), fiecare cu hash; fără unsafe
   assert.match(csp, /^default-src 'none'; script-src ('sha256-[A-Za-z0-9+/=]+' ?){3}; style-src 'unsafe-inline'; /);
@@ -410,7 +411,7 @@ await T('criptare AES-GCM: activare, nimic în clar, blocare, parolă greșită,
 await T('export/import .fff.json (clar și criptat), CSV, șterge tot', async () => {
   const p = await newPage(); await demo(p); const n = (await txs(p)).length;
   const b = await E(p, () => GOSPODAR.bundleObj());
-  assert.equal(b.format, 'fff-bundle'); assert.equal(b.schema, 1); assert.equal(b.app, 'gospodar'); assert.equal(b.version, '2.0.0'); assert.equal(b.updated, '2026-10-26'); assert.ok(typeof b.data['fff.gospodar.data'] === 'string');
+  assert.equal(b.format, 'fff-bundle'); assert.equal(b.schema, 1); assert.equal(b.app, 'gospodar'); assert.equal(b.version, APPV.version); assert.equal(b.updated, APPV.updated); assert.ok(typeof b.data['fff.gospodar.data'] === 'string');
   await nav(p, 'set');
   const [dl] = await Promise.all([p.waitForEvent('download'), p.click('[data-act=exportjson]')]); assert.match(dl.suggestedFilename(), /^gospodar-2026-10-14\.fff\.json$/);
   const file = path.join(HERE, '.tmp-export.fff.json'); await dl.saveAs(file); const j = JSON.parse(fs.readFileSync(file, 'utf8')); assert.equal(j.app, 'gospodar');

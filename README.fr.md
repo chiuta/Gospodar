@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 2.0.0 · **Dernière mise à jour :** 2026-10-26
+**Version :** 2.1.0 · **Dernière mise à jour :** 2026-10-27
+
+**État :** stable · **Hors ligne :** complet
 
 Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -27,6 +29,12 @@ Gospodar est un budget de ménage qui s'exécute localement, dans un seul fichie
 - **Calculateurs :** mensualité de crédit (annuité et amortissements constants, graphique et tableau d'amortissement complet), intérêts composés avec versements mensuels, objectif d'épargne, actualisation selon l'inflation (vous saisissez le taux), TVA (ajout/retrait, taux saisi par vous), conversion de devises (vous saisissez le taux). Chacun montre les formules, les étapes avec vos valeurs, les hypothèses et l'avertissement que les résultats sont indicatifs.
 - **Paramètres :** langue, thème, export/import `.fff.json` (non chiffré ou chiffré par mot de passe), export CSV, chiffrement, verrouillage automatique, « Tout supprimer ».
 
+## Sauvegarde et modèles d’import (2.1.0)
+
+- **Rappel.** L’application ne tourne pas en arrière-plan : le rappel n’apparaît qu’à l’ouverture, si ce nombre de jours s’est écoulé et qu’il y a des modifications. « Enregistrée » signifie seulement que vous avez téléchargé le fichier depuis ce navigateur ; l’application ne peut pas vérifier où vous l’avez conservé.
+- **Paramètres de la sauvegarde chiffrée.** La sauvegarde chiffrée utilise AES-GCM 256 bits, avec une clé dérivée du mot de passe par PBKDF2-SHA256 (600 000 itérations), un sel aléatoire de 16 octets et un IV de 12 octets nouveau à chaque export ; le format est fff-bundle-enc. Elle repose sur Web Crypto du navigateur et n’a pas été auditée par des tiers. Le mot de passe n’est pas stocké et ne peut pas être récupéré.
+- **Modèles de départ pour l’import CSV.** Les modèles sont des points de départ, pas des formats officiels. Revolut : les colonnes sont celles documentées publiquement par des tiers (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), avec des dates du type 2025-09-04 08:04:10 et un point décimal ; vérifiez-les avec votre export (si les en-têtes sont dans une autre langue, l’ordre des colonnes est utilisé). Les lignes dont State n’est pas COMPLETED (p. ex. PENDING, REVERTED) ne sont pas filtrées, et Fee n’est pas ajouté au montant. BT, BCR, ING : nous n’avons pas de spécification publique vérifiée ; le modèle applique seulement des réglages roumains usuels (nombre 1.234,56 et détection de l’en-tête, de la date et du séparateur), et vous confirmez le mappage et enregistrez votre propre profil.
+
 ## Ce qu'il ne fait PAS, et ses limites
 
 - **Il ne donne aucun conseil financier, d'investissement ou fiscal.** Les calculateurs sont indicatifs et affichent leurs hypothèses ; ils ne calculent pas le TAEG et n'incluent ni commissions, ni assurances, ni impôts.
@@ -41,7 +49,7 @@ Gospodar est un budget de ménage qui s'exécute localement, dans un seul fichie
 
 ## Confidentialité
 
-Il s'exécute localement et n'envoie rien. Il n'y a ni analytics, ni cookies, ni requêtes réseau (`connect-src 'none'`). Les données sont dans `localStorage` sous le préfixe `fff.gospodar.` : `data` (le jeu de données, en clair, ou absent s'il est chiffré), `enc` (le jeu chiffré), `lang`, `theme`.
+Il s'exécute localement et n'envoie rien. Il n'y a ni analytics, ni cookies, ni requêtes réseau (`connect-src 'none'`). Les données sont dans `localStorage` sous le préfixe `fff.gospodar.` : `data` (le jeu de données, en clair, ou absent s'il est chiffré), `enc` (le jeu chiffré), `lang`, `theme`, `backup`.
 
 **Chiffrement facultatif :** le jeu enregistré est chiffré avec AES-GCM 256 bits (Web Crypto) ; la clé est dérivée du mot de passe par PBKDF2-SHA256 avec 600 000 itérations (≥ 310 000), un sel aléatoire de 16 octets et un nouvel IV à chaque enregistrement. Le mot de passe n'est pas stocké. À l'activation, la copie en clair est effacée du navigateur. **Si vous perdez le mot de passe, les données chiffrées sont définitivement perdues ; il n'existe aucune récupération.** Les données non chiffrées se trouveront néanmoins en mémoire de la page tant que l'application est déverrouillée ; le verrouillage (manuel ou automatique) les retire de la page. Les exports `.fff.json` non chiffrés contiennent tout ce que vous avez saisi ; il existe aussi un export chiffré par mot de passe.
 

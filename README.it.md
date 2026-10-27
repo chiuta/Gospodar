@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 2.0.0 · **Ultimo aggiornamento:** 2026-10-26
+**Versione:** 2.1.0 · **Ultimo aggiornamento:** 2026-10-27
+
+**Stato:** stabile · **Offline:** completo
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -27,6 +29,12 @@ Gospodar è un budget familiare che funziona in locale, in un unico file HTML, s
 - **Calcolatori:** rata del prestito (annualità e quote capitale costanti, grafico e piano di ammortamento completo), interesse composto con versamenti mensili, obiettivo di risparmio, adeguamento all'inflazione (il tasso lo inserisci tu), IVA (aggiunta/scorporo, aliquota inserita da te), conversione valutaria (il tasso lo inserisci tu). Ognuno mostra le formule, i passaggi con i tuoi valori, le ipotesi e l'avviso che i risultati sono indicativi.
 - **Impostazioni:** lingua, tema, esportazione/importazione `.fff.json` (non cifrato o cifrato con password), esportazione CSV, cifratura, blocco automatico, «Elimina tutto».
 
+## Backup e modelli di importazione (2.1.0)
+
+- **Promemoria.** L’app non funziona in background: il promemoria compare solo quando la apri, se sono passati tanti giorni e ci sono modifiche nuove. «Registrato» significa solo che hai scaricato il file da questo browser; l’app non può verificare dove lo hai conservato.
+- **Parametri del backup cifrato.** Il backup cifrato usa AES-GCM a 256 bit, con chiave derivata dalla password tramite PBKDF2-SHA256 (600.000 iterazioni), salt casuale di 16 byte e IV di 12 byte nuovo a ogni esportazione; il formato è fff-bundle-enc. Si basa su Web Crypto del browser e non è stato verificato da terzi. La password non viene memorizzata e non può essere recuperata.
+- **Modelli di partenza per l’importazione CSV.** I modelli sono punti di partenza, non formati ufficiali. Revolut: le colonne sono quelle documentate pubblicamente da terzi (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), con date del tipo 2025-09-04 08:04:10 e punto decimale; verificale con la tua esportazione (se le intestazioni sono in un’altra lingua si usa l’ordine delle colonne). Le righe con State diverso da COMPLETED (ad es. PENDING, REVERTED) non sono filtrate e Fee non viene aggiunto all’importo. BT, BCR, ING: non abbiamo una specifica pubblica verificata; il modello applica solo impostazioni romene usuali (numero 1.234,56 e rilevamento di intestazione, data e separatore), e tu confermi la mappatura e salvi il tuo profilo.
+
 ## Cosa NON fa e i suoi limiti
 
 - **Non fornisce consulenza finanziaria, di investimento o fiscale.** I calcolatori sono indicativi e mostrano le ipotesi; non calcolano il TAEG e non includono commissioni, assicurazioni o imposte.
@@ -41,7 +49,7 @@ Gospodar è un budget familiare che funziona in locale, in un unico file HTML, s
 
 ## Privacy
 
-Funziona in locale e non invia nulla. Non ci sono analytics, cookie o richieste di rete (`connect-src 'none'`). I dati risiedono in `localStorage` con il prefisso `fff.gospodar.`: `data` (il set di dati, in chiaro, oppure assente se cifrato), `enc` (il set cifrato), `lang`, `theme`.
+Funziona in locale e non invia nulla. Non ci sono analytics, cookie o richieste di rete (`connect-src 'none'`). I dati risiedono in `localStorage` con il prefisso `fff.gospodar.`: `data` (il set di dati, in chiaro, oppure assente se cifrato), `enc` (il set cifrato), `lang`, `theme`, `backup`.
 
 **Cifratura facoltativa:** il set salvato viene cifrato con AES-GCM a 256 bit (Web Crypto); la chiave deriva dalla password tramite PBKDF2-SHA256 con 600.000 iterazioni (≥ 310.000), un salt casuale di 16 byte e un nuovo IV a ogni salvataggio. La password non viene memorizzata. All'attivazione, la copia in chiaro viene cancellata dal browser. **Se perdi la password, i dati cifrati sono persi definitivamente; non esiste alcun recupero.** I dati non cifrati saranno comunque nella memoria della pagina finché l'applicazione è sbloccata; il blocco (manuale o automatico) li rimuove dalla pagina. Le esportazioni `.fff.json` non cifrate contengono tutto ciò che hai inserito; esiste anche l'esportazione cifrata con password.
 

@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Zuletzt aktualisiert:** 2026-10-26
+**Version:** 2.1.0 · **Zuletzt aktualisiert:** 2026-10-27
+
+**Status:** stabil · **Offline:** vollständig
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -27,6 +29,12 @@ Gospodar ist ein Haushaltsbuch, das lokal in einer einzigen HTML-Datei läuft, o
 - **Rechner:** Kreditrate (Annuität und gleichbleibende Tilgungsraten, Diagramm und vollständiger Tilgungsplan), Zinseszins mit monatlichen Einzahlungen, Sparziel, Inflationsanpassung (den Satz gibst du ein), MwSt. (aufschlagen/herausrechnen, von dir eingegebener Satz), Währungsumrechnung (den Kurs gibst du ein). Jeder zeigt die Formeln, die Schritte mit deinen Werten, die Annahmen und den Hinweis, dass die Ergebnisse nur Richtwerte sind.
 - **Einstellungen:** Sprache, Design, `.fff.json`-Export/-Import (unverschlüsselt oder passwortverschlüsselt), CSV-Export, Verschlüsselung, automatische Sperre, „Alles löschen“.
 
+## Sicherung und Import-Vorlagen (2.1.0)
+
+- **Erinnerung.** Die App läuft nicht im Hintergrund: Die Erinnerung erscheint nur beim Öffnen, wenn so viele Tage vergangen sind und es neue Änderungen gibt. „Erfasst“ heißt nur, dass die Datei aus diesem Browser heruntergeladen wurde; die App kann nicht prüfen, wo sie aufbewahrt wird.
+- **Parameter der verschlüsselten Sicherung.** Die verschlüsselte Sicherung nutzt AES-GCM mit 256 Bit; der Schlüssel wird per PBKDF2-SHA256 (600.000 Iterationen) aus dem Passwort abgeleitet, mit zufälligem 16-Byte-Salt und bei jedem Export neuem 12-Byte-IV; das Format ist fff-bundle-enc. Sie nutzt Web Crypto des Browsers und wurde nicht von Dritten geprüft. Das Passwort wird nicht gespeichert und lässt sich nicht wiederherstellen.
+- **Startvorlagen für den CSV-Import.** Vorlagen sind Ausgangspunkte, keine offiziellen Formate. Revolut: Die Spalten sind die von Dritten öffentlich dokumentierten (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), mit Datumsangaben wie 2025-09-04 08:04:10 und Dezimalpunkt; prüfen Sie sie mit Ihrem Export (bei Spaltenköpfen in anderer Sprache gilt die Spaltenreihenfolge). Zeilen mit State ungleich COMPLETED (z. B. PENDING, REVERTED) werden nicht gefiltert, und Fee wird nicht zum Betrag addiert. BT, BCR, ING: Wir haben keine geprüfte öffentliche Spezifikation; die Vorlage wendet nur übliche rumänische Einstellungen an (Zahl 1.234,56 sowie Erkennung von Kopfzeile, Datum und Trennzeichen), und Sie bestätigen die Zuordnung und speichern Ihr eigenes Profil.
+
 ## Was es NICHT tut, und seine Grenzen
 
 - **Es gibt keine Finanz-, Anlage- oder Steuerberatung.** Die Rechner sind Richtwerte und zeigen ihre Annahmen; sie berechnen keinen effektiven Jahreszins und enthalten keine Gebühren, Versicherungen oder Steuern.
@@ -41,7 +49,7 @@ Gospodar ist ein Haushaltsbuch, das lokal in einer einzigen HTML-Datei läuft, o
 
 ## Datenschutz
 
-Läuft lokal und sendet nichts. Es gibt keine Analytics, Cookies oder Netzwerkanfragen (`connect-src 'none'`). Die Daten liegen in `localStorage` unter dem Präfix `fff.gospodar.`: `data` (der Datensatz, im Klartext, oder nicht vorhanden, wenn verschlüsselt), `enc` (der verschlüsselte Datensatz), `lang`, `theme`.
+Läuft lokal und sendet nichts. Es gibt keine Analytics, Cookies oder Netzwerkanfragen (`connect-src 'none'`). Die Daten liegen in `localStorage` unter dem Präfix `fff.gospodar.`: `data` (der Datensatz, im Klartext, oder nicht vorhanden, wenn verschlüsselt), `enc` (der verschlüsselte Datensatz), `lang`, `theme`, `backup`.
 
 **Optionale Verschlüsselung:** Der gespeicherte Datensatz wird mit 256-Bit-AES-GCM (Web Crypto) verschlüsselt; der Schlüssel wird aus dem Passwort per PBKDF2-SHA256 mit 600.000 Iterationen (≥ 310.000), einem zufälligen 16-Byte-Salt und einem neuen IV bei jedem Speichern abgeleitet. Das Passwort wird nicht gespeichert. Bei der Aktivierung wird die Klartextkopie aus dem Browser gelöscht. **Wenn du das Passwort verlierst, sind die verschlüsselten Daten endgültig verloren; es gibt keine Wiederherstellung.** Unverschlüsselte Daten befinden sich dennoch im Speicher der Seite, solange die Anwendung entsperrt ist; das Sperren (manuell oder automatisch) entfernt sie aus der Seite. Unverschlüsselte `.fff.json`-Exporte enthalten alles, was du eingegeben hast; es gibt auch einen passwortverschlüsselten Export.
 
