@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 2.1.0 · **Utolsó frissítés:** 2026-10-27
+**Verzió:** 2.2.0 · **Utolsó frissítés:** 2026-10-27
 
 **Állapot:** stabil · **Offline:** teljes
 
@@ -33,7 +33,8 @@ A Gospodar egy háztartási költségvetés, amely helyben fut, egyetlen HTML-f�
 
 - **Emlékeztető.** Az alkalmazás nem fut a háttérben: az emlékeztető csak megnyitáskor jelenik meg, ha eltelt ennyi nap, és vannak új módosítások. A „rögzített” csak annyit jelent, hogy letöltötted a fájlt ebből a böngészőből; az alkalmazás nem tudja ellenőrizni, hol őrzöd.
 - **A titkosított mentés paraméterei.** A titkosított mentés 256 bites AES-GCM-et használ, a kulcsot a jelszóból PBKDF2-SHA256 vezeti le (600 000 iteráció), véletlen 16 bájtos sóval és minden exportnál új 12 bájtos IV-vel; a formátum fff-bundle-enc. A böngésző Web Crypto-ját használja, és külső fél nem auditálta. A jelszót nem tároljuk, és nem állítható vissza.
-- **Kiinduló sablonok a CSV-importhoz.** A sablonok kiindulópontok, nem hivatalos formátumok. Revolut: az oszlopok a harmadik felek által nyilvánosan dokumentáltak (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), a dátum 2025-09-04 08:04:10 alakú, a tizedes pont; ellenőrizd a saját exportoddal (ha a fejlécek más nyelvűek, az oszlopsorrend számít). Azokat a sorokat, ahol a State nem COMPLETED (pl. PENDING, REVERTED), nem szűrjük, a Fee pedig nem adódik hozzá az összeghez. BT, BCR, ING: nincs ellenőrzött nyilvános specifikációnk; a sablon csak szokásos román beállításokat alkalmaz (1.234,56 szám, a fejléc, a dátum és az elválasztó felismerése), a hozzárendelést te erősíted meg, és saját profilt mentesz.
+- **Kiinduló sablonok a CSV-importhoz.** A sablonok kiindulópontok, nem hivatalos formátumok. Revolut: az oszlopok a harmadik felek által nyilvánosan dokumentáltak (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), a dátum 2025-09-04 08:04:10 alakú, a tizedes pont; ellenőrizd a saját exportoddal (ha a fejlécek más nyelvűek, az oszlopsorrend számít). A Fee és State oszlop hozzá van rendelve, de a „más állapotú sorok kihagyása, mint COMPLETED” és a „díj levonása az összegből” alapból ki van kapcsolva (lásd a hozzárendelés alatti megjegyzést). BT, BCR, ING: nincs ellenőrzött nyilvános specifikációnk; a sablon csak szokásos román beállításokat alkalmaz (1.234,56 szám, a fejléc, a dátum és az elválasztó felismerése), a hozzárendelést te erősíted meg, és saját profilt mentesz.
+- **Díj (nem kötelező) / Állapot (nem kötelező) (2.2.0).** Mindkét beállítás alapból ki van kapcsolva, és soha nem érvényesül magától: nem tudjuk ellenőrizni, hogy a fájlban szereplő összeg tartalmazza-e már a díjat, sem azt, hogyan nevezik az állapotokat az exportod nyelvén. Használd az előnézet „egyenleg-ellenőrzését”: ha egy beállítás bejelölése után csökken az eltérések száma, az az értelmezés illik a fájlodhoz.
 
 ## Amit NEM tud, és a korlátai
 

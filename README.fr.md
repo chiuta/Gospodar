@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 2.1.0 · **Dernière mise à jour :** 2026-10-27
+**Version :** 2.2.0 · **Dernière mise à jour :** 2026-10-27
 
 **État :** stable · **Hors ligne :** complet
 
@@ -33,7 +33,8 @@ Gospodar est un budget de ménage qui s'exécute localement, dans un seul fichie
 
 - **Rappel.** L’application ne tourne pas en arrière-plan : le rappel n’apparaît qu’à l’ouverture, si ce nombre de jours s’est écoulé et qu’il y a des modifications. « Enregistrée » signifie seulement que vous avez téléchargé le fichier depuis ce navigateur ; l’application ne peut pas vérifier où vous l’avez conservé.
 - **Paramètres de la sauvegarde chiffrée.** La sauvegarde chiffrée utilise AES-GCM 256 bits, avec une clé dérivée du mot de passe par PBKDF2-SHA256 (600 000 itérations), un sel aléatoire de 16 octets et un IV de 12 octets nouveau à chaque export ; le format est fff-bundle-enc. Elle repose sur Web Crypto du navigateur et n’a pas été auditée par des tiers. Le mot de passe n’est pas stocké et ne peut pas être récupéré.
-- **Modèles de départ pour l’import CSV.** Les modèles sont des points de départ, pas des formats officiels. Revolut : les colonnes sont celles documentées publiquement par des tiers (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), avec des dates du type 2025-09-04 08:04:10 et un point décimal ; vérifiez-les avec votre export (si les en-têtes sont dans une autre langue, l’ordre des colonnes est utilisé). Les lignes dont State n’est pas COMPLETED (p. ex. PENDING, REVERTED) ne sont pas filtrées, et Fee n’est pas ajouté au montant. BT, BCR, ING : nous n’avons pas de spécification publique vérifiée ; le modèle applique seulement des réglages roumains usuels (nombre 1.234,56 et détection de l’en-tête, de la date et du séparateur), et vous confirmez le mappage et enregistrez votre propre profil.
+- **Modèles de départ pour l’import CSV.** Les modèles sont des points de départ, pas des formats officiels. Revolut : les colonnes sont celles documentées publiquement par des tiers (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), avec des dates du type 2025-09-04 08:04:10 et un point décimal ; vérifiez-les avec votre export (si les en-têtes sont dans une autre langue, l’ordre des colonnes est utilisé). Les colonnes Fee et State sont mappées, mais les options « ignorer les lignes dont le statut n’est pas COMPLETED » et « soustraire les frais du montant » sont désactivées par défaut (voir la note sous le mappage). BT, BCR, ING : nous n’avons pas de spécification publique vérifiée ; le modèle applique seulement des réglages roumains usuels (nombre 1.234,56 et détection de l’en-tête, de la date et du séparateur), et vous confirmez le mappage et enregistrez votre propre profil.
+- **Frais (optionnel) / Statut (optionnel) (2.2.0).** Les deux options sont désactivées par défaut et ne s’appliquent jamais seules : nous ne pouvons pas vérifier si le montant du fichier inclut déjà les frais, ni comment les statuts sont nommés dans la langue de votre export. Utilisez la « vérification des soldes » de l’aperçu : si le nombre d’écarts baisse après avoir coché une option, cette interprétation convient à votre fichier.
 
 ## Ce qu'il ne fait PAS, et ses limites
 

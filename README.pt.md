@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 2.1.0 · **Última atualização:** 2026-10-27
+**Versão:** 2.2.0 · **Última atualização:** 2026-10-27
 
 **Estado:** estável · **Offline:** completo
 
@@ -33,7 +33,8 @@ O Gospodar é um orçamento doméstico que funciona localmente, num único fiche
 
 - **Lembrete.** A aplicação não corre em segundo plano: o lembrete só aparece quando a abre, se tiverem passado esses dias e houver alterações novas. «Registada» significa apenas que descarregou o ficheiro deste navegador; a aplicação não pode verificar onde o guardou.
 - **Parâmetros da cópia cifrada.** A cópia cifrada usa AES-GCM de 256 bits, com chave derivada da palavra-passe por PBKDF2-SHA256 (600 000 iterações), sal aleatório de 16 bytes e um IV de 12 bytes novo em cada exportação; o formato é fff-bundle-enc. Usa o Web Crypto do navegador e não foi auditada por terceiros. A palavra-passe não é guardada e não pode ser recuperada.
-- **Modelos de partida para importar CSV.** Os modelos são pontos de partida, não formatos oficiais. Revolut: as colunas são as documentadas publicamente por terceiros (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), com datas como 2025-09-04 08:04:10 e ponto decimal; confirme-as com a sua exportação (se os cabeçalhos estiverem noutra língua, usa-se a ordem das colunas). As linhas cujo State não seja COMPLETED (p. ex. PENDING, REVERTED) não são filtradas e Fee não é somado ao montante. BT, BCR, ING: não temos uma especificação pública verificada; o modelo só aplica definições romenas habituais (número 1.234,56 e deteção de cabeçalho, data e separador), e confirma o mapeamento e guarda o seu próprio perfil.
+- **Modelos de partida para importar CSV.** Os modelos são pontos de partida, não formatos oficiais. Revolut: as colunas são as documentadas publicamente por terceiros (Type, Product, Started Date, Completed Date, Description, Amount, Fee, Currency, State, Balance), com datas como 2025-09-04 08:04:10 e ponto decimal; confirme-as com a sua exportação (se os cabeçalhos estiverem noutra língua, usa-se a ordem das colunas). As colunas Fee e State estão mapeadas, mas as opções «ignorar linhas com estado diferente de COMPLETED» e «subtrair a comissão ao montante» estão desativadas por defeito (veja a nota por baixo do mapeamento). BT, BCR, ING: não temos uma especificação pública verificada; o modelo só aplica definições romenas habituais (número 1.234,56 e deteção de cabeçalho, data e separador), e confirma o mapeamento e guarda o seu próprio perfil.
+- **Comissão (opcional) / Estado (opcional) (2.2.0).** Ambas as opções estão desativadas por defeito e nunca se aplicam sozinhas: não podemos verificar se o montante do ficheiro já inclui a comissão, nem como se chamam os estados na língua da sua exportação. Use a «verificação de saldos» da pré-visualização: se o número de divergências baixar ao marcar uma opção, essa interpretação serve para o seu ficheiro.
 
 ## O que NÃO faz e os seus limites
 

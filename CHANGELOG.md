@@ -2,6 +2,17 @@
 
 Format: SemVer MAJOR.MINOR.PATCH. Date: AAAA-LL-ZZ.
 
+## 2.2.0 — 2026-10-27
+
+Import CSV: opțiuni pentru coloanele „Comision” și „Stare” (rămase neimplementate în 2.1.0).
+
+- **Două roluri noi în maparea coloanelor, opționale:** „Comision” și „Stare”. Când sunt mapate apar două opțiuni, **oprite implicit**: (1) „Scade comisionul din sumă” (net = sumă − valoarea absolută a comisionului; comision gol = 0, comision nevalid = rând cu eroare) și (2) „Ignoră rândurile a căror stare diferă de: [valoare]” (comparare fără deosebire de majuscule; valoare goală = fără filtru). Rândurile ignorate nu sunt erori: previzualizarea afișează câte au fost ignorate. Ambele opțiuni intră în profilurile salvate.
+- **Șablonul Revolut** mapează acum și Fee (coloana 7) și State (coloana 9), cu valoarea de stare „COMPLETED” precompletată, dar **nu activează** niciuna dintre opțiuni.
+- **De ce oprite implicit (limită onestă):** sursele publice găsite (documentația unor conectori terți) arată coloanele, dar nu spun dacă `Amount` include deja `Fee`, iar singura valoare de stare menționată este `COMPLETED` (alt exemplu are valori localizate). Nu am putut verifica aceste semnificații pe un export real, deci nu le aplicăm în mod automat. Aplicația oferă în schimb o cale de verificare: „verificarea soldurilor” din previzualizare arată câte rânduri consecutive au soldul coerent cu suma; dacă numărul de nepotriviri scade după bifare, interpretarea se potrivește fișierului tău.
+- **BT, BCR, ING:** neschimbat, „format de verificat”. Am căutat din nou specificații publice ale exporturilor CSV și nu am găsit nicio sursă verificabilă; nu s-a inventat nicio mapare. Maparea manuală și profilurile salvate (deja existente) rămân modalitatea de lucru.
+- Teste noi: `tests/import-opts.test.mjs`; `tests/backup-tpl.test.mjs` actualizat pentru noua formă a mapării Revolut. Remediere: la pierderea focusului câmpului de lipire CSV (`change`) detectarea nu mai este reluată dacă textul nu s-a schimbat (altfel ștergea șablonul, profilul sau opțiunile alese).
+- Texte noi în 8 limbi (traducerile fr, it, es, pt, hu, de sunt automate, neverificate de vorbitori nativi).
+
 ## 2.1.0 — 2026-10-27
 
 Funcții noi, locale, fără rețea și fără dependențe.
