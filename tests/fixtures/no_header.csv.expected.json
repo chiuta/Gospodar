@@ -1,0 +1,45 @@
+{
+ "rows": [
+  {
+   "date": "2026-03-01",
+   "amt": -123456,
+   "desc": "Cumpărături Mega Image, București"
+  },
+  {
+   "date": "2026-03-02",
+   "amt": 250000,
+   "desc": "Salariu ș ț ă â î"
+  },
+  {
+   "date": "2026-03-03",
+   "amt": -99,
+   "desc": "Taxă \"card\""
+  },
+  {
+   "date": "2026-03-04",
+   "amt": -1500,
+   "desc": "Linie nouă"
+  },
+  {
+   "date": "2026-03-05",
+   "amt": 100000000,
+   "desc": "Bonus mare"
+  },
+  {
+   "date": "2026-03-06",
+   "amt": -750,
+   "desc": "Transport; metrou"
+  },
+  {
+   "date": "2026-03-15",
+   "amt": -4210,
+   "desc": "Plată facturi ÎNTREȚINERE"
+  },
+  {
+   "date": "2026-12-31",
+   "amt": 1,
+   "desc": "Dobândă"
+  }
+ ],
+ "header": false
+}
