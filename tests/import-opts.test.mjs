@@ -1,4 +1,4 @@
-// Teste Gospodar 2.2.0: opțiuni de import CSV — coloane „Comision” și „Stare” (scădere comision, filtrare după stare), opționale și oprite implicit.
+// Teste Gospodar 2.3.0: opțiuni de import CSV — coloane „Comision” și „Stare” (scădere comision, filtrare după stare), opționale și oprite implicit.
 // Rulare: node tests/import-opts.test.mjs [filtru]   (Playwright din /opt/node-tools; rețea blocată)
 // Notă: exemplele „Revolut” sunt sintetice, construite după coloanele documentate public de terți; nu sunt un export real.
 import {createRequire} from 'module';
