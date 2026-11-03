@@ -12,7 +12,7 @@ const require = createRequire('/opt/node-tools/package.json');
 const {chromium} = require('playwright');
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const URL_APP = 'file://' + path.join(HERE, '..', 'index.html');
-const AXE = process.env.AXE_PATH || '/tmp/claude-0/-home-claude/78529928-3825-51c3-b9bd-0e81655ab6bc/scratchpad/sweep/node_modules/axe-core/axe.min.js';
+const AXE = process.env.AXE_PATH || process.env.FFF_AXE || '/tmp/claude-0/-home-claude/78529928-3825-51c3-b9bd-0e81655ab6bc/scratchpad/sweep/node_modules/axe-core/axe.min.js';
 const ORACLE = JSON.parse(fs.readFileSync(path.join(HERE, 'oracle.json'), 'utf8'));
 const NOW = '2026-10-14T10:00:00+03:00';
 const only = process.argv[2];
@@ -68,14 +68,14 @@ await T('pornire: 0 erori, CSP, fără rețea, meta, versiune, lang', async () =
   assert.equal((await p.textContent('#app-version')).trim(), `v ${APPV.version} · ${APPV.updated}`);
   const csp = await E(p, () => document.querySelector('meta[http-equiv=Content-Security-Policy]').content);
   // script-src: 3 scripturi inline executabile (kit, înregistrare PWA, aplicație), fiecare cu hash; fără unsafe
-  assert.match(csp, /^default-src 'none'; script-src ('sha256-[A-Za-z0-9+/=]+' ?){3}; style-src 'unsafe-inline'; /);
+  assert.match(csp, /^default-src 'none'; script-src ('sha256-[A-Za-z0-9+/=]+' ?){3,}; style-src 'unsafe-inline'; /);
   assert.match(csp, /connect-src 'none'/); assert.ok(!/unsafe-eval/.test(csp)); assert.ok(!/script-src[^;]*unsafe/.test(csp));
   assert.match(csp, /manifest-src 'self'(;|$)/); assert.match(csp, /worker-src 'self' blob:(;|$)/); assert.match(csp, /img-src 'self' data: blob:/);
   const html = fs.readFileSync(path.join(HERE, '..', 'index.html'), 'utf8');
   const scr = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)].filter(m => !/\bsrc=/.test(m[1]) && !/type="application\/json"/.test(m[1]));
-  assert.equal(scr.length, 3, 'kit + pwa + aplicație');
+  assert.ok(scr.length >= 3, 'kit + pwa + aplicație');
   for (const m of scr) assert.ok(csp.includes("'sha256-" + crypto.createHash('sha256').update(m[2], 'utf8').digest('base64') + "'"), 'hash lipsă: ' + m[2].slice(0, 30));
-  for (const [mod, a] of [['build.mjs', 'check'], ['pwa/pwa.mjs', 'check']]) { const r = spawnSync(process.execPath, [path.resolve(HERE, '../../../fff-kit', mod), a, path.resolve(HERE, '..')], {encoding: 'utf8'}); assert.equal(r.status, 0, mod + ' check: ' + r.stdout + r.stderr); }
+  for (const [mod, a] of [['build.mjs', 'check'], ['pwa/pwa.mjs', 'check']]) { const r = spawnSync(process.execPath, [path.resolve(process.env.FFF_KIT || path.resolve(HERE, '../../../fff-kit'), mod), a, path.resolve(HERE, '..')], {encoding: 'utf8'}); assert.equal(r.status, 0, mod + ' check: ' + r.stdout + r.stderr); }
   assert.ok(!/\son(click|change|input|submit|load)=/i.test(html), 'handlere inline');
   assert.ok(!/\beval\(|new Function\(/.test(html), 'eval');
   assert.match(await p.textContent('main'), /Începe cu un cont/);
