@@ -2,7 +2,7 @@
   "schema": 1,
   "slug": "gospodar",
   "name": "Gospodar",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "updated": "2026-11-15",
   "description": "Gospodar: buget de gospodărie local, cu conturi, categorii, import CSV cu asistent de mapare, reguli de categorizare, bugete lunare, rapoarte și calculatoare cu formule transparente. Rulează local, nu trimite nimic.",
   "egress": [],
@@ -16,8 +16,8 @@
     "BroadcastChannel"
   ],
   "storageKeys": [],
-  "sizeBytes": 882275,
-  "sha256": "d6edb09262ffdf5369050435d5f69f1194ee2583a9ba210a5d10508f84ed4c37",
+  "sizeBytes": 900311,
+  "sha256": "1d892539a8d6c79c78fc869a02d2c94d8130918f815b37599af8892f153a86d4",
   "csp": {
     "present": true,
     "directives": {
@@ -60,6 +60,7 @@
       "exit",
       "view",
       "a11y",
+      "share",
       "ux",
       "label",
       "bundle",
@@ -71,12 +72,13 @@
     ]
   },
   "kit": {
-    "version": "1.6.0",
+    "version": "1.7.0",
     "modules": [
       "core",
       "exit",
       "view",
       "a11y",
+      "share",
       "ux",
       "label",
       "bundle",
